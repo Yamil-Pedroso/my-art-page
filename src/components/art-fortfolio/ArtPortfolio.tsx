@@ -12,21 +12,42 @@ interface Artwork {
   title: string;
 }
 
-interface Favorite {
-  [key: number]: boolean;
-}
+
+
+
 
 const ArtPortfolio: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
+  const [favorites, setFavorites] = useState(false)
   const params = useParams();
-  const [favorites, setFavorites] = useState<Favorite>({});
-  console.log(favorites);
-  
-  const handleFavorite = (id: number) => {
-    setFavorites((prevFavorites) => {
-      return { ...prevFavorites, [id]: !prevFavorites[id] }
-    });
+ 
+  const handleFavorite = () => {
+    setFavorites(!favorites);
   };
+
+const FavoritePicFunc = () => {
+  return (
+    <FavoritePic onClick={() => handleFavorite()}>
+    {favorites ? (
+      <AiFillHeart style={{
+        color: "red",
+        fontSize: "24px",
+        position: "absolute",
+        top: "10px",
+        right: "10px",
+      }} />
+    ) : (
+      <AiOutlineHeart style={{
+        color: "red",
+        fontSize: "24px",
+        position: "absolute",
+        top: "10px",
+        right: "10px",
+      }} />
+    )}
+  </FavoritePic>
+  )
+}
 
   useEffect(() => {
     setTimeout(() => {
@@ -49,8 +70,8 @@ const ArtPortfolio: React.FC = () => {
     <Container>
       <CardWrapper>
         {Array.from({ length: 10 }).map((_, index) => (
-           
-            <Card key={index}>
+          <Card key={index}>
+            <FavoritePicFunc />
                 {
                     index < 4 ? (
                     cardContent.map((content: Artwork) => (
@@ -63,25 +84,6 @@ const ArtPortfolio: React.FC = () => {
                           )}
                         </div>
                       </Link>
-                      <FavoritePic onClick={() => handleFavorite(content.id)}>
-                        {favorites[content.id] !== undefined && favorites[content.id] ? (
-                          <AiFillHeart style={{
-                            color: "red",
-                            fontSize: "24px",
-                            position: "absolute",
-                            top: "10px",
-                            right: "10px",
-                          }} />
-                        ) : (
-                          <AiOutlineHeart style={{
-                            color: "red",
-                            fontSize: "24px",
-                            position: "absolute",
-                            top: "10px",
-                            right: "10px",
-                          }} />
-                        )}
-                      </FavoritePic>
                       </>
 
                     ))
@@ -101,7 +103,6 @@ const ArtPortfolio: React.FC = () => {
                                 }
                             </div>
                           </Link>
-    
                         ))
                         }
                       </>
