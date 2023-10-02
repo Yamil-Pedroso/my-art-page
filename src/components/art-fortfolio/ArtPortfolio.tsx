@@ -22,7 +22,7 @@ const ArtPortfolio: React.FC = () => {
   const params = useParams();
  
   const handleFavorite = () => {
-    setFavorites(!favorites);
+    setFavorites(!favorites); 
   };
 
 const FavoritePicFunc = () => {

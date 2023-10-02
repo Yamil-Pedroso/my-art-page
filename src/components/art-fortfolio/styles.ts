@@ -23,7 +23,7 @@ export const Card = styled.div`
     justify-content: center;
     align-items: center;
     width: 25rem;
-    height: 25rem;
+    height: 32rem;
     background-color: #4c4c4c;
     margin: .1rem;
     overflow: hidden;
